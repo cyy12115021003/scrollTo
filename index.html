@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+  	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+  	<title>无缝滚动——左右</title>
+  	<style>
+	  	#scroll{width:750px;height:110px;margin:0 auto;position:relative;overflow:hidden;}  	
+	  	.btn_left{position: absolute;top:60px;}
+	  	.btn_right{position: absolute;top:60px;left: 50px;}
+	 	#scroll .sConetnt{width:546px;height:110px;position:relative;overflow:hidden;margin:0 auto;}
+	  	#scroll ul{position:absolute;}
+	  	#scroll li{float:left;width:180px;height:110px;text-align:center;list-style: none;}
+	  	#scroll li a:hover{position:relative;top:2px;}
+  	</style>
+</head>
+<body>
+  <div id="scroll">
+    <a href="javascript:;" class="btn_left" title="点击向前">
+    	<
+    </a>
+    <a href="javascript:;" class="btn_right" title="点击向后">
+    	>
+    </a>
+    
+    <div class="sConetnt">
+      	<ul>
+         	<li><a href="#"><img src="images/1.png" width="200" height="110" alt="1"/></a></li>
+	        <li><a href="#"><img src="images/2.png" width="200" height="110" alt="2"/></a></li>
+	        <li><a href="#"><img src="images/3.png" width="200" height="110" alt="3"/></a></li>
+	        <li><a href="#"><img src="images/4.png" width="200" height="110" alt="4"/></a></li>
+      	</ul>
+    </div>
+    
+    
+    
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+	window.onload = function(){
+	  	var oDiv = document.getElementById('scroll'),
+	   		oUl = oDiv.getElementsByTagName('ul')[0],
+	  		aLi = oDiv.getElementsByTagName('li'),
+	  		aBtn = oDiv.getElementsByTagName('a'),
+	  		speed = -1,
+	  		timer = null;
+	  	oUl.innerHTML += oUl.innerHTML;
+	  	oUl.style.width = aLi[0].offsetWidth * aLi.length + 'px';
+	  	timer = setInterval(function(){
+	    	oUl.style.left = oUl.offsetLeft + speed + 'px';
+		    if(oUl.offsetLeft < - oUl.offsetWidth / 2){
+		      oUl.style.left = '0';
+		    }else if(oUl.offsetLeft > 0){
+		      oUl.style.left = - oUl.offsetWidth / 2 + 'px';
+		    }
+	  	},20);
+		aBtn[0].onclick = function(){
+		    speed = -1;
+		};
+	  	aBtn[1].onclick = function(){
+	    	speed = 1;
+	  	};
+	  	oUl.onmouseover = function(){
+	    	clearInterval(timer);
+	  	};
+	  	oUl.onmouseout = function(){
+	    	timer = setInterval(function(){
+	      		oUl.style.left = oUl.offsetLeft + speed + 'px';
+		      	if(oUl.offsetLeft < -oUl.offsetWidth / 2){
+		        	oUl.style.left = '0';
+		      	}else if(oUl.offsetLeft > 0){
+		        	oUl.style.left = - oUl.offsetWidth / 2 + 'px';
+		      	}
+	    	},20);
+	  	};
+	};
+</script>
